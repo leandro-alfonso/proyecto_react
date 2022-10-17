@@ -3,6 +3,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export const CartWidget = () => {
     return (
-        <ShoppingCartIcon fontSize="large"/>
+        <ShoppingCartIcon fontSize="large" sx={{ color: "black"}}/>
     )
 }

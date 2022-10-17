@@ -8,6 +8,7 @@ export const style = {
     containerDiv:{
             display: 'flex',
             alignItems: 'center',
+            gap: "1rem",
     },
 
     containerTitulo:{
@@ -15,7 +16,7 @@ export const style = {
             fontSize: '1.5em',
     },
     containerLogo:{
-            width: 60,
+            width: 40,
     },
     containerNav:{
         display: 'flex',

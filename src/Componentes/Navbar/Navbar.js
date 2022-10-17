@@ -2,34 +2,39 @@ import React from "react";
 import logo from '../../assets/logo.png'
 import {style} from './Navbar.style'
 import { CartWidget } from "../CartWidget/CartWidget";
+import { Link, NavLink } from "react-router-dom";
 
 
 export const Navbar = () =>{
 
 const rutas = [
-    {nombre:"Procesadores", id:0, ruta:""},
-    {nombre:"Mother", id:1, ruta:""},
-    {nombre:"Placas de video", id:2, ruta:""},
-    {nombre:"Gabinetes", id:3, ruta:""},
+    {nombre:"electronics", id:0, ruta:"/rutas/electronics"},
+    {nombre:"jewelery", id:1, ruta:"/rutas/jewelery"},
+    {nombre:"men's clothing", id:2, ruta:"/rutas/men's clothing"},
+    {nombre:"women's clothing", id:3, ruta:"/rutas/women's clothing"},
 ]
 
     return (
         <header style={style.container}>
             <div style={style.containerDiv}>
-            <img src= {logo} alt="logo cpu" style={style.containerLogo}/>
-            <h1 style={style.containerTitulo}>Compu Oeste</h1>
+            <Link to="/">
+            <img src= {logo} alt="logo" style={style.containerLogo}/>
+            </Link>
+            <h1 style={style.containerTitulo}>ISOSHOP</h1>
             </div>
             <nav style={style.containerNav}>
                 <ul style={style.containerLink}>
                    {
                    rutas.map((ruta)=>{
-                    return <a key={ruta.id} style={style.containerA} href={ruta.ruta}>{ruta.nombre}</a>
+                    return <NavLink key={ruta.id} style={style.containerA} to={ruta.ruta}>{ruta.nombre}</NavLink>
                    })
                    }
                 </ul>
             </nav>
             <div style={style.containerIcon}>
-                <CartWidget />
+                <Link to="/cart">
+                    <CartWidget />
+                </Link>
             </div>
         </header>
     )
