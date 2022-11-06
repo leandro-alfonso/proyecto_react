@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {styles} from './ItemDetail.style'
 import ItemCount from "../../ItemCount/ItemCount";
 import { Link } from "react-router-dom"
+import { Context } from "../../../Context/CartContext";
 
-const ItemDetail = ({ product }) => {
-    const [showItemcount, setShowItemcount] = useState(true)
+const ItemDetail = ({ product , objet }) => {
+    const [showItemcount, setShowItemcount] = useState(false);
+    const {agregarItem,IsInCart,cart} = useContext(Context)
+
+      let stock = 0;
+  if(IsInCart(product.id)){
+    const found = cart.find(item => item.id === product.id);
+    stock = objet.count - found.cantidad;
+  }else{
+    stock = objet.count;
+  }
+
     const onAdd = (count)=> {
-        console.log(`el usuario quiere agregar al carrito ${count} productos`)
-        setShowItemcount(false)
+      setShowItemcount(true)
+      agregarItem(product, count)
     }
   return (
     <section style={styles.productSection}>
@@ -17,8 +28,10 @@ const ItemDetail = ({ product }) => {
       <h2>Description</h2>
       <span style={styles.productDescription}>{product.description}</span>
       <h3 style={styles.productPrecio}>$ {product.price}</h3>
+      <p> stock disponible {stock} </p>
+
       {
-        showItemcount ? <ItemCount stock={10} initial={1} onAdd={onAdd} /> : ( <Link to={`/cart`}><button>Finalizar compra</button></Link> )
+        !showItemcount ? <ItemCount stock={stock} initial={1} onAdd={onAdd} /> : ( <Link to={`/cart`}><button>Finalizar compra</button></Link> )
       }
       
     </div>

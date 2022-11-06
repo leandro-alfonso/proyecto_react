@@ -19,14 +19,17 @@ export const ItemListContainer = ({greeting})=> {
         setTimeout(()=>{
             setLoading(false)
         },2000)
-      fetch(idCategoria === undefined ? URL_BASE : URL_CAT)
-        .then((res) => res.json())
-        .then((json) => setProducts(json))
-        .catch((error) => {
-          console.log(error);
-        })
-        // .finally(setLoading(false));
-    }, [idCategoria]);
+        const getProductos = async () => {
+        try{
+            const res = await fetch(idCategoria === undefined ? URL_BASE : URL_CAT)
+            const data = await res.json();
+            setProducts(data);
+        } catch {
+            console.log("error");
+        }
+        };
+        getProductos();
+    }, [idCategoria,URL_BASE,URL_CAT]);
 
     return (
         <>

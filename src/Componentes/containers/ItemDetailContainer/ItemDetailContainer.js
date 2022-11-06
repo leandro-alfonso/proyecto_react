@@ -7,6 +7,8 @@ export const ItemDetailContainer = ({ envio }) => {
 
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [objet,setObjet] = useState([])
+
   const {id} = useParams ();
 
 
@@ -15,14 +17,18 @@ export const ItemDetailContainer = ({ envio }) => {
     setTimeout(()=>{
         setLoading(false)
     },2000)
-  fetch(`https://fakestoreapi.com/products/${id}`)
-    .then((res) => res.json())
-    .then((json) => setProduct(json))
-    .catch((error) => {
-      console.log(error);
-    })
-    // .finally(setLoading(false));
-}, []);
+    const getProductos = async () => {
+    try{
+      const res = await  fetch(`https://fakestoreapi.com/products/${id}`)
+      const data = await res.json();
+      setObjet(data.rating)
+      setProduct(data);
+    }catch {
+      console.log("error");
+    }
+    };
+    getProductos();
+}, [id]);
 
   return (
     <>
@@ -33,7 +39,7 @@ export const ItemDetailContainer = ({ envio }) => {
         size={150}
         aria-label="Loading Spinner"
         data-testid="loader"
-      /></div>  : <ItemDetail product={product} />}</>}
+      /></div>  : <ItemDetail product={product} objet={objet} />}</>}
     </>
   );
 };

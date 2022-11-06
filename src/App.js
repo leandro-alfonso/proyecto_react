@@ -5,13 +5,14 @@ import { ItemListContainer } from "./Componentes/containers/ItemListContainer";
 import { ItemDetailContainer } from "./Componentes/containers/ItemDetailContainer/ItemDetailContainer";
 import { BrowserRouter,Routes,Route,} from "react-router-dom";
 import {Cart} from "./Componentes/containers/CartView/Cart";
+import { CustomProvider } from "./Context/CartContext";
 
 const app = () => {
   const mensaje= "¡Encontrá precios increíbles!"
   const venta="ENVÍO GRATIS EN 24HS"
   return (
-    <>
     <BrowserRouter>
+    <CustomProvider>
       <Navbar />
       <Routes>
         <Route path="/" element={<ItemListContainer greeting={mensaje} />}/>
@@ -20,9 +21,8 @@ const app = () => {
         <Route path="/cart" element={<Cart/>} />
         <Route path="*" element={<ItemListContainer />}/>
       </Routes>
+    </CustomProvider>
     </BrowserRouter>
-
-    </>
   )
 }
 
