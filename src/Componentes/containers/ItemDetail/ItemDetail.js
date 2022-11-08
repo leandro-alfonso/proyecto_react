@@ -4,16 +4,16 @@ import ItemCount from "../../ItemCount/ItemCount";
 import { Link } from "react-router-dom"
 import { Context } from "../../../Context/CartContext";
 
-const ItemDetail = ({ product , objet }) => {
+const ItemDetail = ({ product}) => {
     const [showItemcount, setShowItemcount] = useState(false);
     const {agregarItem,IsInCart,cart} = useContext(Context)
 
       let stock = 0;
   if(IsInCart(product.id)){
     const found = cart.find(item => item.id === product.id);
-    stock = objet.count - found.cantidad;
+    stock = product.stock - found.cantidad;
   }else{
-    stock = objet.count;
+    stock = product.stock;
   }
 
     const onAdd = (count)=> {

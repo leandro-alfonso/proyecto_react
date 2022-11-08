@@ -2,32 +2,39 @@ import React, { useEffect, useState } from "react";
 import ItemDetail from "../ItemDetail/ItemDetail";
 import ClipLoader from "react-spinners/ClipLoader";
 import {useParams} from "react-router-dom"
+import { getDoc, collection, doc } from 'firebase/firestore';
+import { db } from '../../../firebase/firebase';
 
 export const ItemDetailContainer = ({ envio }) => {
 
   const [product, setProduct] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [objet,setObjet] = useState([])
+  const [loading, setLoading] = useState(true);
 
   const {id} = useParams ();
 
 
   useEffect(() => {
-    setLoading(true)
-    setTimeout(()=>{
-        setLoading(false)
-    },2000)
-    const getProductos = async () => {
+    const productCollection = collection (db,"productos");
+    const redDoc = doc(productCollection,id);
+
+    const obtenerItem = async () => {
     try{
-      const res = await  fetch(`https://fakestoreapi.com/products/${id}`)
-      const data = await res.json();
-      setObjet(data.rating)
-      setProduct(data);
-    }catch {
-      console.log("error");
-    }
-    };
-    getProductos();
+     const retornar = await getDoc(redDoc)
+     const dataDoc = {
+      id: retornar.id,
+      ...retornar.data()
+  };
+  setProduct(dataDoc)
+  }
+  catch(error){
+    console.error(error);
+}
+  finally{
+    setLoading(false);
+}
+  }
+  obtenerItem()
+
 }, [id]);
 
   return (
@@ -39,7 +46,7 @@ export const ItemDetailContainer = ({ envio }) => {
         size={150}
         aria-label="Loading Spinner"
         data-testid="loader"
-      /></div>  : <ItemDetail product={product} objet={objet} />}</>}
+      /></div>  : <ItemDetail product={product} />}</>}
     </>
   );
 };

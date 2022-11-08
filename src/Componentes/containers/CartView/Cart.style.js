@@ -7,6 +7,12 @@ export const style = {
         textDecoration: "none",
     color: "#3483fa",
     },
+
+    formContainer : {
+        width:"50%",
+        marginTop :"2rem",
+    },
+
     containerArticle:{
         width:"100%",
         display: "flex",
@@ -32,12 +38,6 @@ export const style = {
         alignItems: "center",
         fontSize:"1em",
         fontWeight: "400",
-    },
-    buttonCart:{
-        width: "10%",
-        color: "white",
-        backgroundColor: "#4CC713",
-        padding: "10px 25px",
     },
     vaciarCart:{
         width: "10%",
@@ -73,5 +73,8 @@ export const style = {
 
    seguirCart:{
     marginTop :"1rem",
+   },
+   subCart:{
+    textAlign: "center",
    }
 }

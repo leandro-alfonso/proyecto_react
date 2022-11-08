@@ -7,17 +7,6 @@ export const CustomProvider = ({children})=>{
     const [qty,setQty] = useState(0)
     const [total, setTotal] = useState(0)
 
-    // useEffect(()=>{
-    //     let cantidad = 0;
-    //     let totalC = 0;
-    //     cart.forEach((item) => {
-    //         cantidad += item.cantidad;
-    //         totalC += item.price * item.cantidad
-    //     });
-    //     setQty(cantidad);
-    //     setTotal(totalC);
-    // },[cart]);
-
     const agregarItem = (item,cantidad) => {
         if (IsInCart(item.id)){
             const agregar = cart.map((producto) => {
@@ -41,10 +30,6 @@ export const CustomProvider = ({children})=>{
         setQty( qty - found.cantidad)
         setTotal(total - (found.price * found.cantidad))
     }
-
-    // const actualizarTotal = () =>{
-    //     console.log("muestra el total")
-    // }
 
     const IsInCart = (id) => cart.some (item => item.id === id)
 

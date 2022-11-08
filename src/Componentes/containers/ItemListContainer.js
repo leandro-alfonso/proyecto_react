@@ -2,34 +2,43 @@ import React, { useEffect, useState } from "react";
 import ItemList from "./ItemList/ItemList";
 import ClipLoader from "react-spinners/ClipLoader";
 import {useParams} from "react-router-dom"
+import {getDocs,collection,query,where} from "firebase/firestore"
+import {db} from "../../firebase/firebase"
 
 
 export const ItemListContainer = ({greeting})=> {
 
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const {idCategoria} = useParams ();
-
-    const URL_BASE = 'https://fakestoreapi.com/products'
-    const URL_CAT = `${URL_BASE}/category/${idCategoria}`
   
     useEffect(() => {
-        setLoading(true)
-        setTimeout(()=>{
-            setLoading(false)
-        },2000)
-        const getProductos = async () => {
+        const productCollection = collection(db,"productos")
+        const q = idCategoria? query (productCollection,where("category","==",idCategoria)) : productCollection;
+
+        const obtenerItem = async () => {
         try{
-            const res = await fetch(idCategoria === undefined ? URL_BASE : URL_CAT)
-            const data = await res.json();
-            setProducts(data);
-        } catch {
-            console.log("error");
+        const retornar = await getDocs(q)
+        const dataDoc = retornar.docs.map(item =>{
+            return {
+                ...item.data(),
+                id:item.id,
+            }
+        })
+        setProducts(dataDoc);
         }
-        };
-        getProductos();
-    }, [idCategoria,URL_BASE,URL_CAT]);
+
+        catch(error){
+            console.error(error);
+          }
+          finally{
+            setLoading(false);
+          }
+        }
+        obtenerItem();
+
+    }, [idCategoria]);
 
     return (
         <>
