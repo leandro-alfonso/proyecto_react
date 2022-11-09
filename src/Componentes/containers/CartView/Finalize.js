@@ -12,7 +12,7 @@ function Finalize({setBuyer, finalizarCompra}) {
             setName(e.target.value);
         } else if (e.target.name === 'apellido'){
             setLastame(e.target.value);
-        } else if (e.target.name === "numero"){
+        } else if (e.target.name === "telefono"){
             setEnum(e.target.value);
         }else if (e.target.name === "email"){
             setEmail(e.target.value);
@@ -40,8 +40,8 @@ function Finalize({setBuyer, finalizarCompra}) {
                 <input name="apellido" type="text" placeholder="Ingresa tu apellido" required onChange={setInput}/>
             </div>
             <div style={style.formDiv}>
-                <label htmlFor="">Numero:</label>
-                <input name="numero" type="text" placeholder="Ingresa tu numero" required onChange={setInput}/>
+                <label htmlFor="">Telefono:</label>
+                <input name="telefono" type="text" placeholder="Ingresa tu telefono" required onChange={setInput}/>
             </div>
             <div style={style.formEmail}>
                 <label htmlFor="">Email:</label>

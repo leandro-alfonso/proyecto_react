@@ -10,6 +10,16 @@ En el dicho carrito se puede ver los productos seleccionados, se pueden eliminar
 al finalizar la compra se devuelve un numero de id de la compra para el usuario.
 
 los productos y las ventas se almacenan en la base de datos de firebase.
+
+
+## En el proyecto se utiliza
+
+* HTML
+* JavaScript
+* react-router-dom
+* Material UI
+* SweetAlert2
+* Firebase
  
 ## Descarga
 
